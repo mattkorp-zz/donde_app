@@ -1,0 +1,6 @@
+
+= hb 'each friendships' do
+  %li.friendship
+    = hb 'username'
+    = hb 'active'
+    <a href="#">{{active}}</a>

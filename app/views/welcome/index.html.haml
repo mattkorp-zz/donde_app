@@ -1,2 +1,30 @@
-%h1 Welcome#index
-%p Find me in app/views/welcome/index.html.haml
+%div#main
+  %h1 donde
+
+  %div#errors
+
+  %div#signup_form{ :style => "display: none;" }
+    = form_for(User.new) do |f|
+      = f.label           :username
+      = f.text_field      :username
+      = f.label           :email
+      = f.text_field      :email
+      = f.label           :password
+      = f.password_field  :password
+      = f.label           "Confirm"
+      = f.password_field  :password_confirmation
+      = f.submit
+      %p Already have and account?
+      %a#login_button{ href: "#"} Login
+
+  %div#login_form{ :style => "display: show;" }
+    = form_tag("/login") do
+      = label_tag           :username
+      = text_field_tag      :username
+      = label_tag           :password
+      = password_field_tag  :password
+      = submit_tag          "Login", id: "submit-login"
+      %p First visit?
+      %a#signup_button{ href: "#"} Sign Up
+
+  %ul#friendships_list
