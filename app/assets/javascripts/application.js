@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //
+//= require latlon
 //= require json2
 //= require handlebars.runtime
 //= require handlebars

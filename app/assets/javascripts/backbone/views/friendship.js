@@ -3,12 +3,12 @@ App.Views.Friendships = Backbone.View.extend({
   events: {
     "submit form" : "newFriend"
   },
-  initialize: function(args){
+  initialize: function(args) {
     // this.user_id
-    this.username = $("#username");
+    //this.username = $("#username");
     this.render();
   },
-  show: function(){
+  show: function() {
     this.$el.show();
   },
   render: function(){
@@ -23,6 +23,7 @@ App.Views.Friendships = Backbone.View.extend({
         var html = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
         console.log(html);
         friendView.$el.html(html);
+        friendView.addEvents(myFriends);
       }
     });
 
@@ -34,7 +35,7 @@ App.Views.Friendships = Backbone.View.extend({
     // return this;
 
   },
-  newFriend: function(e){
+  newFriend: function(e) {
     // create model for new user, get email from input
     e.preventDefault();
     var newUser = new App.Models.User();
@@ -45,9 +46,12 @@ App.Views.Friendships = Backbone.View.extend({
 
     // add user to contacts
   },
-  getAttributes: function(){
+  getAttributes: function() {
     return {
       email: this.email.val(),
     }
+  },
+  addEvents: function(friends) {
+    debugger;
   }
 });
