@@ -8,5 +8,6 @@ $(document).ajaxSend(function (e, xhr, options) {
 window.App = {
   Models      : {},
   Collections : {},
-  Views       : {}
+  Views       : {},
+  Router      : {}
 };

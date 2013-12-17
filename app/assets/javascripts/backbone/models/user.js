@@ -1,18 +1,16 @@
 App.Models.User = Backbone.Model.extend({
   urlRoot: "/users",
   defaults: {
-  //  user: {
-      "username"              : "",
-      "email"                 : "",
-      "password"              : "",
-      "password_confirmation" : "",
-      "latitude"              : "",
-      "longitude"             : "",
-      "active"                : "false"
-   // }
+      // "username"              : "",
+      // "email"                 : "",
+      // "password"              : "",
+      // "password_confirmation" : "",
+      // "latitude"              : "",
+      // "longitude"             : "",
+      // "active"                : "false"
   },
   initialize: function(){
-    user = this;
+     user = this;
   },
   geoLocate: function(){
     //start watching position after initialization
@@ -22,12 +20,12 @@ App.Models.User = Backbone.Model.extend({
 
       // set location watch
       this.watchID = navigator.geolocation.watchPosition(
-        user.watchPositionCallback,
-        user.watchPostionError,
+        this.watchPositionCallback,
+        this.watchPostionError,
         {
           enableHighAccuracy: true,
           maximumAge: 0,
-          timeout: timeoutVal
+          //timeout: timeoutVal
         });
 
     } else {
@@ -35,11 +33,11 @@ App.Models.User = Backbone.Model.extend({
     }
   },
   watchPositionCallback: function(position){
+debugger;
     // if geo successful, update lat/long and add a listener
     user.set("latitude", position.coords.latitude);
     user.set("longitude", position.coords.longitude);
-// !!! BUG - SEEMS TO UPDATE ALL USERS !!!
-    user.listenTo(user, "change", user.updateLatLon());
+    user.on("change", this.updateLatLon);
   },
   watchPositionError: function(error) {
     // if geo unsuccessful...
@@ -52,9 +50,8 @@ App.Models.User = Backbone.Model.extend({
   },
   updateLatLon: function() {
     // Update users Lat/Lon
-    //this.save({latitude: this.get("latitude"), longitude: this.get("longitude")}, {
-    this.save(this.model, {
-      wait: true,
+     user.save(this.attributes, {
+      wait: false,
       success: function(model, response){
         // User updated successfully
         console.log("User updated success");
@@ -68,17 +65,15 @@ App.Models.User = Backbone.Model.extend({
   // options are what's passed from save or set
   validate: function(attrs, options){
     var errors = [];
-    debugger;
-    //if (attrs.user.username === "" || attrs.user.email === "" || attrs.user.password === "" || attrs.user.password_confirmation === ""){
-    // if (attrs.username === "" || attrs.email === "" || attrs.password === "" || attrs.password_confirmation === ""){
-    //   errors.push("Fields can't be Blank!");
-    // }
-    // if (attrs.user.password !== attrs.user.password_confirmation) {
+    if (attrs.username === "" || attrs.password === "" ) {
+      errors.push("Fields can't be Blank!");
+    }
+    // if (attrs.password !== attrs.password_confirmation) {
     //   errors.push("Passwords must match");
     // }
-    // if(errors.length > 0) {
-    //   return errors;
-    // }
+    if(errors.length > 0) {
+      return errors;
+    }
   },
   authenticate: function(){
     // authenticate user with login fields
@@ -93,6 +88,26 @@ App.Models.User = Backbone.Model.extend({
       }
     }).done(function(response){
       user.set(response);
+      return true;
+    });
+  },
+  cleanup: function() {
+    window.onbeforeunload = function(e) {
+      App.user.logoff();
+    };
+  },
+  logoff: function() {
+    // destroy session and logout of system
+    var user = this;
+    $.ajax({
+      url   : "/logout",
+      async : true,
+      type  : "POST",
+      data  : {
+        username: this.get('username'),
+        password: this.get('password')
+      }
+    }).done(function(response){
       return true;
     });
   }

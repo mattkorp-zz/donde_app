@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //
+//= require prettyPrint
 //= require latlon
 //= require json2
 //= require handlebars.runtime

@@ -1,7 +1,15 @@
 App.Models.Friendship = Backbone.Model.extend({
-  urlRoot: "friendship",
+  urlRoot: "/users",
   defaults: {
-    username: "",
-    status: ""
+      "username"              : "",
+      "email"                 : "",
+      "password"              : "",
+      "password_confirmation" : "",
+      "latitude"              : "",
+      "longitude"             : "",
+      "active"                : "false"
+   // }
+  },
+  initialize: function(){
   }
 });

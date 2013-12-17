@@ -1,14 +1,22 @@
 .container {
   margin: 0 auto;
-  width: 960px;
+  width: 200px;
+  font-family: arial;
+}
+
+h1 {
+  text-align: center;
 }
 
 button {
+
   border-radius: 5px;
   margin: 5px;
 }
 
 input {
+  width: 200px;
+  height: 25px;
   display: block;
   margin: 5px;
   border-radius: 5px;

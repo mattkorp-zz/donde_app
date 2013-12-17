@@ -1,8 +1,5 @@
 class SessionController < ApplicationController
 
-  def new
-  end
-
   def create
     user = User.where(username: params[:username]).first
     if user && user.authenticate(params[:password])
@@ -15,9 +12,12 @@ class SessionController < ApplicationController
   end
 
   def destroy
+    # logout user and let db know too
+    user = User.where(username: params[:username]).first
+    user.active = false
+    user.save
     session[:user_id] = nil
     redirect_to root_url, notice: "Logged out!"
   end
 
 end
-

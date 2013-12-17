@@ -1,11 +1,10 @@
 App.Views.Friendships = Backbone.View.extend({
   el: "#friendships_list",
   events: {
-    "submit form" : "newFriend"
+    "submit form"           : "newFriend",
+    "click a.friend-anchor" : "chooseFriend"
   },
   initialize: function(args) {
-    // this.user_id
-    //this.username = $("#username");
     this.render();
   },
   show: function() {
@@ -13,26 +12,16 @@ App.Views.Friendships = Backbone.View.extend({
   },
   render: function(){
     //var userModel    = new App.Models.User();
-    this.friendships = new App.Collections.Friendships();
-    var myFriends    = this.friendships;
+    this.friendships   = new App.Collections.Friendships();
+    var myFriends      = this.friendships;
     var friendView     = this;
     this.friendships.fetch({
       success: function(model) {
-        console.log("fetch success");
-        console.log(myFriends.toJSON());
         var html = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
-        console.log(html);
         friendView.$el.html(html);
-        friendView.addEvents(myFriends);
+        // friendView.addEvents(myFriends);
       }
     });
-
-    // var self = this;
-    // this.model.somecollection.forEach(function(c) {
-    //     var view = new ChildView({ model: c });
-    //     self.el.append(view.render().el);
-    // });
-    // return this;
 
   },
   newFriend: function(e) {
@@ -40,18 +29,21 @@ App.Views.Friendships = Backbone.View.extend({
     e.preventDefault();
     var newUser = new App.Models.User();
     newUser.set( this.getAttributes() );
-    // send user, auth, and new email
-    // or just send
-    // send by ajax or bb to  server?
-
     // add user to contacts
+    // TODO
   },
   getAttributes: function() {
     return {
       email: this.email.val(),
     }
   },
-  addEvents: function(friends) {
-    debugger;
+  // addEvents: function(friends) {
+  //   // debugger;
+  // },
+  chooseFriend: function(e) {
+    // TODO add friend id or username to the string
+    this.$el.hide();
+    $('div.spinner').show();
+    App.router.navigate( "where", { trigger: true });
   }
 });

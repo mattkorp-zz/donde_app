@@ -1,17 +1,15 @@
 DondeApp::Application.routes.draw do
-  # resources :friendships
-  resources :sessions
+  #resources :sessions
+
   resources :users do
     resources :friendships
   end
 
-  get  'signup', to: 'users#new',        as: 'signup'
-  get   'login', to: 'sessions#new',     as: 'login'
-  post '/login', to: 'session#create'
-  get  'logout', to: 'sessions#destroy', as: 'logout'
+  get    'signup', to: 'users#new',        as: 'signup'
+  post    'login', to: 'session#create'
+  post   'logout', to: 'session#destroy',  as: 'logout'
 
   root to: 'welcome#index'
 
-  get "welcome/index"
 
 end

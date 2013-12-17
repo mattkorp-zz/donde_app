@@ -2,10 +2,12 @@ class FriendshipsController < ApplicationController
   respond_to :html, :json
     # GET /friendships.json
   def index
+    @friendships = []
     user = User.where({id: params[:user_id]}).first
-    @friendships = user.friends
+    @friendships << user.friends
+    @friendships << user.inverse_friends
     if !@friendships.nil?
-      respond_with(@friendships.to_json)
+      respond_with(@friendships.flatten.to_json)
     else
       respond_with("no friends found")
     end

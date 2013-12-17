@@ -1,9 +1,8 @@
 
 = hb 'each friendships' do
   %li.friendship
-    <a href="{{id}}">{{username}}
+    %img{:src => "assets/images/apple.png", :alt => ""}/
+    %a{ :href => "#where/" + "{{id}}", :id => "{{id}}", :class => "friend-anchor"}{{username}}
     = hb 'if active' do
       active
-      = hb 'else'
-      offline
     </a>
