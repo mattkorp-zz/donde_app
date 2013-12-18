@@ -9,12 +9,12 @@ App.Views.Main = Backbone.View.extend({
     this.login  = new App.Views.Login({ model: this.model });
   },
   showForm: function(e){
-    this.signup.show();
-    this.login.$el.hide();
+    this.signup.show("slow");
+    this.login.$el.hide("slow");
   },
   showLogin: function(e){
-    this.login.show();
-    this.signup.$el.hide();
+    this.login.show("slow");
+    this.signup.$el.hide("slow");
   }
 });
 

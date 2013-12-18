@@ -1,0 +1,8 @@
+  <ul>
+  {{#each friendships}}
+    <li class="friendship">
+    <a href="#where/{{id}}" id="{{id}}" class="friend-anchor">{{username}}
+    <span class="indicator {{#if active}} active" {{/if}}></span></a>
+    </li>
+  {{/each}}
+  </ul>

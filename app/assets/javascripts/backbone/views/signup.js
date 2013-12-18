@@ -15,10 +15,10 @@ App.Views.Signup = Backbone.View.extend({
     this.errors = $("#errors");
   },
   show: function(e) {
-    this.$el.show();
+    this.$el.show("slow");
   },
   hide: function(e) {
-    this.$el.hide();
+    this.$el.hide("slow");
   },
   createUser: function(e) {
     e.preventDefault();

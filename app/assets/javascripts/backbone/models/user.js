@@ -17,14 +17,14 @@ App.Models.User = Backbone.Model.extend({
       // timeout if value new location in 10 seconds
       var timeoutVal = 5 * 1000;
       // set location watch
-      you = this;
+      var you = this;
       App.user.watchID = navigator.geolocation.watchPosition(
         App.user.watchPositionCallback,
         App.user.watchPostionError,
         {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: timeoutVal
+          enableHighAccuracy : true,
+          maximumAge         : 0,
+          timeout            : timeoutVal
         });
 
     } else {

@@ -1,6 +1,6 @@
 App.Views.Login = Backbone.View.extend({
-  el: "#login_form",
-  events: {
+  el     : "#login_form",
+  events : {
     "click #submit-login" : "login"
   },
   initialize: function(){
@@ -8,7 +8,7 @@ App.Views.Login = Backbone.View.extend({
     this.password = $("#password");
   },
   show: function(){
-    this.$el.show();
+    this.$el.show("slow");
   },
   login: function(e){
     e.preventDefault();
@@ -22,7 +22,7 @@ App.Views.Login = Backbone.View.extend({
     this.model.cleanup();
 
     // now send to contact list
-    this.$el.hide();
+    this.$el.hide("slow");
     App.router.navigate( "friends", { trigger: true } );
   },
   getAttributes: function(){

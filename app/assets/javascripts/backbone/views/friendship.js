@@ -1,5 +1,5 @@
 App.Views.Friendships = Backbone.View.extend({
-  el: "#friendships_list",
+  el: "#friendships-list",
   events: {
     "submit form"           : "newFriend",
     "click a.friend-anchor" : "chooseFriend"
@@ -8,7 +8,7 @@ App.Views.Friendships = Backbone.View.extend({
     this.render();
   },
   show: function() {
-    this.$el.show();
+    this.$el.show("slow");
   },
   render: function(){
     this.friends       = new App.Models.Friendship();
@@ -17,8 +17,9 @@ App.Views.Friendships = Backbone.View.extend({
     var friendView     = this;
     this.friendships.fetch({
       success: function(model) {
-        var html = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
-        friendView.$el.html(html);
+        var template = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
+      console.log(myFriends.toJSON());
+        friendView.$el.html( template );
       }
     });
 
@@ -38,7 +39,7 @@ App.Views.Friendships = Backbone.View.extend({
   },
   chooseFriend: function(e) {
     // TODO add friend id or username to the string
-    this.$el.hide();
+    this.$el.hide("slow");
     $('div.spinner').show();
     App.router.navigate( "where", { trigger: true });
   }

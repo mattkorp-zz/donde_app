@@ -1,0 +1,2 @@
+
+%img{ :id => "where", :style => "display:none; -webkit-transform:rotate({{bearing}}deg); -moz-transform:rotate({{bearing}}deg); -o-transform:rotate({{bearing}}deg); -ms-transform:rotate({{bearing}}deg)", :src => "images/pointer.svg" }
