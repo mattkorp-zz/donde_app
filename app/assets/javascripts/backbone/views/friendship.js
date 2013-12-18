@@ -11,7 +11,8 @@ App.Views.Friendships = Backbone.View.extend({
     this.$el.show();
   },
   render: function(){
-    this.friendships   = new App.Collections.Friendships();
+    this.friends       = new App.Models.Friendship();
+    this.friendships   = new App.Collections.Friendships({model: this.friends});
     var myFriends      = this.friendships;
     var friendView     = this;
     this.friendships.fetch({
@@ -25,7 +26,7 @@ App.Views.Friendships = Backbone.View.extend({
   newFriend: function(e) {
     // create model for new user, get email from input
     e.preventDefault();
-    var newUser = new App.Models.User();
+    var newUser = new App.Models.Friendship();
     newUser.set( this.getAttributes() );
     // add user to contacts
     // TODO

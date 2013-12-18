@@ -10,22 +10,21 @@ App.Models.User = Backbone.Model.extend({
     "active"                : "false"
   },
   initialize: function(){
-     user = this;
   },
   geoLocate: function(){
     //start watching position after initialization
     if  (navigator.geolocation) {
       // timeout if value new location in 10 seconds
-      var timeoutVal = 10 * 1000;
-
+      var timeoutVal = 5 * 1000;
       // set location watch
-      this.watchID = navigator.geolocation.watchPosition(
-        this.watchPositionCallback,
-        this.watchPostionError,
+      you = this;
+      App.user.watchID = navigator.geolocation.watchPosition(
+        App.user.watchPositionCallback,
+        App.user.watchPostionError,
         {
           enableHighAccuracy: true,
           maximumAge: 0,
-          //timeout: timeoutVal
+          timeout: timeoutVal
         });
 
     } else {
@@ -33,11 +32,10 @@ App.Models.User = Backbone.Model.extend({
     }
   },
   watchPositionCallback: function(position){
-debugger;
     // if geo successful, update lat/long and add a listener
-    user.set("latitude", position.coords.latitude);
-    user.set("longitude", position.coords.longitude);
-    user.on("change", this.updateLatLon);
+    you.set("latitude", position.coords.latitude);
+    you.set("longitude", position.coords.longitude);
+    you.listenTo(App.user, "change:latitude", you.updateLatLon);
   },
   watchPositionError: function(error) {
     // if geo unsuccessful...
@@ -50,11 +48,12 @@ debugger;
   },
   updateLatLon: function() {
     // Update users Lat/Lon
-     user.save(this.attributes, {
+     this.save( {
       wait: false,
       success: function(model, response){
         // User updated successfully
         console.log("User updated success");
+
       },
       error: function(model, error){
         console.log("Cannot update user");
@@ -108,6 +107,35 @@ debugger;
         password: this.get('password')
       }
     }).done(function(response){
+      return true;
+    });
+  },
+  getFriendInfo: function(){
+    // authenticate user with login fields
+    var user = this;
+    $.ajax({
+      url   : "/users/" + this.get("id"),
+      async : false,
+      type  : "get",
+      data  : {}
+        // username: this.get('username'),
+        // password: this.get('password')
+    }).done(function(response){
+      user.set(response);
+      // Not updating enough, maybe look at again if performance issue
+      // App.friend.sync("update", App.friend, {
+      //   wait: false,
+      //   success: function(model, response) {
+      //   console.log("friend updated success");
+      //   },
+      //   error: function(model, error) {
+      //   console.log("Cannot update friend");
+      //   }
+      // });
+      // Continually update friend data
+      setInterval(function() {
+        user.fetch();
+      }, 5000);
       return true;
     });
   }

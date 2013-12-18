@@ -1,6 +1,6 @@
 App.Collections.Friendships = Backbone.Collection.extend({
-  model: App.Models.User,
+  model: App.Models.Friendship,
   url: function() {
-   return App.user.url() + "/friendships"
+   return  "friendships/" + App.user.get("id");
   }
 });

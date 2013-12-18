@@ -3,6 +3,7 @@ class FriendshipsController < ApplicationController
     # GET /friendships.json
   def index
     @friendships = []
+    binding.pry
     user = User.where({id: params[:user_id]}).first
     @friendships << user.friends
     @friendships << user.inverse_friends
@@ -15,11 +16,10 @@ class FriendshipsController < ApplicationController
 
   # GET /friendships/1.json
   def show
-    binding.pry
     user = User.where({id: params[:id]}).first
-    friendships = {users: user.friends}
+    friendships = user.friends
     if !friendships.nil?
-      render json: friendships[:users].to_json, status: 200
+      render json: friendships.to_json, status: 200
     else
       render json: "no friends found", status: 200
     end
@@ -43,6 +43,7 @@ class FriendshipsController < ApplicationController
 
   # PATCH/PUT /friendships/1.json
   def update
+    binding.pry
     if @friendship.update(friendship_params)
       head :no_content
     else

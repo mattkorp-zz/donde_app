@@ -13,11 +13,12 @@ App.Router = Backbone.Router.extend({
   },
   listFriendships: function() {
     // get user info in view
-    App.friendList = new App.Views.Friendships({ model: App.user });
+    App.friendList = new App.Views.Friendships();
   },
   findFriend: function(id) {
     // get friend data to update
-    App.friend = new App.Models.Friendship({id: id});
+    App.friend = new App.Models.User({id: id});
+    App.friend.getFriendInfo();
     App.findFriend = new App.Views.Where();
   }
 });

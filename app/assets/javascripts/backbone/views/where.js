@@ -1,24 +1,26 @@
 App.Views.Where = Backbone.View.extend({
   el: '#where',
   initialize: function() {
+    this.myLat        = 0.0;
+    this.myLon        = 0.0;
+    this.friendLat    = 0.0;
+    this.friendLon    = 0.0;
+    this.initDistance = 0.0;
+    this.render();
+  },
+  render: function() {
+    var whereView = this;
+    this.setBindings();
+  },
+  setBindings: function() {
+    this.listenTo(App.user, "change", this.makeCalcs);
+    this.listenTo(App.friend, "change", this.makeCalcs);
+  },
+  makeCalcs: function() {
     this.myLat        = App.user.get("latitude");
     this.myLon        = App.user.get("longitude");
     this.friendLat    = App.friend.get("latitude");
     this.friendLon    = App.friend.get("longitude");
-    this.initDistance = 0.0;
-
-    this.render();
-  },
-  render: function() {
-    $('div.spinner').show();
-    var whereView = this
-    setInterval(function() {
-      console.log("again");
-      whereView.makeCalcs();
-      whereView.$el.html($('<p>').append(whereView.distance, "  ").append(whereView.bearing));
-    },10000);
-  },
-  makeCalcs: function() {
     this.getPoints();
     if (this.initDistance === 0) {
       this.initDistance = this.updateDistance();
@@ -26,6 +28,11 @@ App.Views.Where = Backbone.View.extend({
       this.updateDistance();
     }
     this.updateBearing();
+    this.updatePage();
+    $('div.spinner').hide();
+  },
+  updatePage: function() {
+      this.$el.html($('<p>').append(this.distance, "  ").append(this.bearing));
   },
   getPoints: function() {
     this.myPt     = new LatLon(this.myLat, this.myLon);
