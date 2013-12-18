@@ -34,10 +34,22 @@ u4 = User.new({
 })
 u4.save
 
-u3.friends << u4
-u2.friends << u4
-u4.friends << u3 << u2
+u5 = User.new({
+  username: "zatt",
+  email: "zatt@korp.com",
+  password: "zatt",
+  password_confirmation: "zatt"
+})
+u5.save
 
+u3.friends << u4 << u1
+u2.friends << u4 << u1 << u3
+
+
+u4.friends << u2
+# u1.friends << u3 << u2 << u4
+
+u1.save
 u2.save
 u3.save
 u4.save

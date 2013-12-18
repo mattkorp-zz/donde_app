@@ -11,7 +11,6 @@ App.Views.Friendships = Backbone.View.extend({
     this.$el.show();
   },
   render: function(){
-    //var userModel    = new App.Models.User();
     this.friendships   = new App.Collections.Friendships();
     var myFriends      = this.friendships;
     var friendView     = this;
@@ -19,7 +18,6 @@ App.Views.Friendships = Backbone.View.extend({
       success: function(model) {
         var html = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
         friendView.$el.html(html);
-        // friendView.addEvents(myFriends);
       }
     });
 
@@ -37,9 +35,6 @@ App.Views.Friendships = Backbone.View.extend({
       email: this.email.val(),
     }
   },
-  // addEvents: function(friends) {
-  //   // debugger;
-  // },
   chooseFriend: function(e) {
     // TODO add friend id or username to the string
     this.$el.hide();
@@ -47,3 +42,4 @@ App.Views.Friendships = Backbone.View.extend({
     App.router.navigate( "where", { trigger: true });
   }
 });
+
