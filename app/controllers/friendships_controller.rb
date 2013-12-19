@@ -3,7 +3,6 @@ class FriendshipsController < ApplicationController
     # GET /friendships.json
   def index
     @friendships = []
-    binding.pry
     user = User.where({id: params[:user_id]}).first
     @friendships << user.friends
     @friendships << user.inverse_friends
@@ -32,7 +31,6 @@ class FriendshipsController < ApplicationController
 
   # POST /friendships.json
   def create
-    binding.pry
     @friendship = Friendship.new(friendship_params)
     if @friendship.save
       render action: 'show', status: :created, location: @friendship
@@ -43,7 +41,6 @@ class FriendshipsController < ApplicationController
 
   # PATCH/PUT /friendships/1.json
   def update
-    binding.pry
     if @friendship.update(friendship_params)
       head :no_content
     else

@@ -2,7 +2,7 @@ App.Views.Friendships = Backbone.View.extend({
   el: "#friendships-list",
   events: {
     "submit form"           : "newFriend",
-    "click a.friend-anchor" : "chooseFriend"
+    "click a.friend-active" : "chooseFriend"
   },
   initialize: function(args) {
     this.render();
@@ -18,7 +18,6 @@ App.Views.Friendships = Backbone.View.extend({
     this.friendships.fetch({
       success: function(model) {
         var template = HandlebarsTemplates['friendships/friendships']({ friendships: myFriends.toJSON()});
-      console.log(myFriends.toJSON());
         friendView.$el.html( template );
       }
     });
@@ -27,15 +26,14 @@ App.Views.Friendships = Backbone.View.extend({
   newFriend: function(e) {
     // create model for new user, get email from input
     e.preventDefault();
-    var newUser = new App.Models.Friendship();
-    newUser.set( this.getAttributes() );
+    var newFriendModel = new App.Models.Friendship();
+    newFriendModel.set( $('#new-friend-add').getAttributes() );
     // add user to contacts
+    newFriendModel.makeFriend
     // TODO
   },
   getAttributes: function() {
-    return {
-      email: this.email.val(),
-    }
+    return { email: this.email.val() }
   },
   chooseFriend: function(e) {
     // TODO add friend id or username to the string

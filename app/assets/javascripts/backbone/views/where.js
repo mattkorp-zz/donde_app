@@ -28,7 +28,6 @@ App.Views.Where = Backbone.View.extend({
 
     if (this.initDistance === 0) {
         this.initDistance = this.updateDistance();
-debugger;
       if (this.initDistance !== 0) {
           this.initBGColor();
       }
@@ -41,20 +40,19 @@ debugger;
     this.updateBGColor();
   },
   initBGColor: function() {
-    var BLUE_TO_RED = [ "#00F",
-      "#10E","#20D","#30C","#40B","#50A",
-      "#609","#708","#807","#906","#A05",
-      "#B04","#C03","#D02","#E01","#F00" ];
+    var BLUE_TO_RED = [ "#0BF",
+      "#1BE","#2AD","#3AC","#49B","#59A",
+      "#689","#788","#877","#976","#A65",
+      "#B64","#C53","#D52","#E41","#F40" ];
     // There are 16 levels of background colors from BLUE_TO_RED
     // map these from initial distance stepped down to to "sync^"
     // find step quantities and match color steps to object
     var colorObj = this.bgColors;
     var keyDist = Math.floor(this.initDistance);
     var step = Math.floor(this.initDistance / BLUE_TO_RED.length);
-    debugger;
     // FIX BLUE_TO_RED = [Object Array] not Array?
     _.each(BLUE_TO_RED, function(color, count){
-      colorObj.bgColors[keyDist - (step*(count-1))] = color;
+      colorObj[keyDist - (step*(count-1))] = color;
     });
   },
   updatePage: function() {
@@ -81,13 +79,13 @@ debugger;
   updateBGColor: function() {
     // find nearest key value to background number
     var closest = null;
-debugger;
-    $.each(this.bgColors.keys(), function() {
-      if (closest == null || Math.abs( this - this.distance ) < Math.abs( closest - this.distance )) {
-        closest = this;
+    $.each(this.bgColors, function(index, color) {
+      if (closest == null || Math.abs( index - this.distance ) < Math.abs( closest - this.distance )) {
+        closest = index;
       }
     });
-    // $('html').css("background-color": this.bgColors[closest]);
+
+     $('body').css("background-color", this.bgColors[closest]);
   },
   getPoints: function() {
     this.myPt     = new LatLon(this.myLat, this.myLon);

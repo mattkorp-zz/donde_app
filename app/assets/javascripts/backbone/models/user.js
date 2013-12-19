@@ -17,7 +17,6 @@ App.Models.User = Backbone.Model.extend({
       // timeout if value new location in 10 seconds
       var timeoutVal = 5 * 1000;
       // set location watch
-      var you = this;
       App.user.watchID = navigator.geolocation.watchPosition(
         App.user.watchPositionCallback,
         App.user.watchPostionError,
@@ -33,9 +32,9 @@ App.Models.User = Backbone.Model.extend({
   },
   watchPositionCallback: function(position){
     // if geo successful, update lat/long and add a listener
-    you.set("latitude", position.coords.latitude);
-    you.set("longitude", position.coords.longitude);
-    you.listenTo(App.user, "change:latitude", you.updateLatLon);
+    App.user.set("latitude", position.coords.latitude);
+    App.user.set("longitude", position.coords.longitude);
+    App.user.listenTo(App.user, "change:latitude", App.user.updateLatLon);
   },
   watchPositionError: function(error) {
     // if geo unsuccessful...
@@ -53,7 +52,6 @@ App.Models.User = Backbone.Model.extend({
       success: function(model, response){
         // User updated successfully
         console.log("User updated success");
-
       },
       error: function(model, error){
         console.log("Cannot update user");
@@ -64,9 +62,7 @@ App.Models.User = Backbone.Model.extend({
   // options are what's passed from save or set
   validate: function(attrs, options){
     var errors = [];
-    if (attrs.username === "" || attrs.password === "" ) {
-      errors.push("Fields can't be Blank!");
-    }
+
     // if (attrs.password !== attrs.password_confirmation) {
     //   errors.push("Passwords must match");
     // }
@@ -133,9 +129,7 @@ App.Models.User = Backbone.Model.extend({
       //   }
       // });
       // Continually update friend data
-      setInterval(function() {
-        user.fetch();
-      }, 5000);
+      setInterval( function() { user.fetch(); }, 5000 );
       return true;
     });
   }

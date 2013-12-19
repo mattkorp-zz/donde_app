@@ -11,26 +11,26 @@ u1 = User.new({
 u1.save
 
 u2 = User.new({
-  username: "katt",
-  email: "katt@korp.com",
-  password: "katt",
-  password_confirmation: "katt"
+  username: "jon",
+  email: "jon@korp.com",
+  password: "jon",
+  password_confirmation: "jon"
 })
 u2.save
 
 u3 = User.new({
-  username: "batt",
-  email: "batt@korp.com",
-  password: "batt",
-  password_confirmation: "batt"
+  username: "phil",
+  email: "phil@korp.com",
+  password: "phil",
+  password_confirmation: "phil"
 })
 u3.save
 
 u4 = User.new({
-  username: "satt",
-  email: "satt@korp.com",
-  password: "satt",
-  password_confirmation: "satt"
+  username: "katt",
+  email: "katt@korp.com",
+  password: "katt",
+  password_confirmation: "katt"
 })
 u4.save
 
@@ -43,11 +43,11 @@ u5 = User.new({
 u5.save
 
 u3.friends << u4 << u1
-u2.friends << u4 << u1 << u3
-
+u2.friends << u4 << u1 << u3 << u5
+u5.friends << u2 << u1
 
 u4.friends << u2
-# u1.friends << u3 << u2 << u4
+u1.friends << u3 << u2 << u4 << u5
 
 u1.save
 u2.save

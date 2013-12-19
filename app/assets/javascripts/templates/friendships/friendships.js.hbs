@@ -1,8 +1,19 @@
-  <ul>
+  <h2>Contacts</h2>
   {{#each friendships}}
-    <li class="friendship">
-    <a href="#where/{{id}}" id="{{id}}" class="friend-anchor">{{username}}
-    <span class="indicator {{#if active}} active" {{/if}}></span></a>
-    </li>
+    {{#if active}}
+    <div class="friend-div">
+    <div class="indicator active"></div>
+    <a href="#where/{{id}}" id="{{id}}" class="friend-active">{{username}}</a></div>
+    {{/if}}
+  {{/each}}
+  {{#each friendships}}
+    {{#if active}}
+    {{else}}
+    <div class="friend-div">
+    <div class="indicator inactive"></div>
+    <a id="{{id}}" class="friend-inactive">{{username}}</a></div>
+    {{/if}}
   {{/each}}
   </ul>
+  <input type="text" id="new-friend-txt" class="text-input" placeholder="Email">
+  <input type="submit" id="new-friend-add" class="button" value="Add">

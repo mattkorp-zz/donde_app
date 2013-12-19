@@ -4,13 +4,12 @@
   font-family: arial;
 }
 
-h1 {
+h1, h3 {
   text-align: center;
   font-family: Arial;
 }
 
 button {
-
   border-radius: 5px;
   margin: 5px;
 }
@@ -21,4 +20,31 @@ input {
   display: block;
   margin: 5px;
   border-radius: 5px;
+  text-align: center;
+  font-size: 13px;
 }
+
+.indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
+.active {
+  background: green;
+}
+.inactive {
+  background: red;
+}
+#where {
+  text-align: center;
+}
+div#friendship-list {
+  text-align: center;
+}
+div.friend-div {
+  height: 32px;
+  text-align: center;
+  vertical-align: middle;
+}
+
