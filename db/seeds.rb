@@ -8,7 +8,9 @@ u1 = User.new({
   password: "matt",
   password_confirmation: "matt"
 })
-u1.save
+u1.latitude = 50
+u1.longitude = 50
+u1.active = true
 
 u2 = User.new({
   username: "jon",
@@ -16,7 +18,9 @@ u2 = User.new({
   password: "jon",
   password_confirmation: "jon"
 })
-u2.save
+u2.latitude = 50.00002
+u2.longitude = 50.01
+u2.active = true
 
 u3 = User.new({
   username: "phil",
@@ -24,7 +28,9 @@ u3 = User.new({
   password: "phil",
   password_confirmation: "phil"
 })
-u3.save
+u3.latitude = 50.10002
+u3.longitude = 50.011
+u3.active = true
 
 u4 = User.new({
   username: "katt",
@@ -32,7 +38,9 @@ u4 = User.new({
   password: "katt",
   password_confirmation: "katt"
 })
-u4.save
+u4.latitude = 50.0102
+u4.longitude = 50.011
+u4.active = true
 
 u5 = User.new({
   username: "zatt",
@@ -40,7 +48,10 @@ u5 = User.new({
   password: "zatt",
   password_confirmation: "zatt"
 })
-u5.save
+u5.latitude = 50
+u5.longitude = 50
+u5.active = true
+
 
 u3.friends << u4 << u1
 u2.friends << u4 << u1 << u3 << u5
@@ -53,3 +64,5 @@ u1.save
 u2.save
 u3.save
 u4.save
+u5.save
+
